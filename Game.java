@@ -36,22 +36,31 @@ public class Game {
 
     public void play() {
         Scanner scanner = new Scanner(System.in);
+        int numberOfTurns = 0;
         do {
             if (curTurn) {
                 System.out.println("O turn: ");
                 int x = scanner.nextInt();
                 int y = scanner.nextInt();
-                if (run(x, y, CellStatus.O))
+                if (run(x, y, CellStatus.O)) {
                     changeStatus();
+                    numberOfTurns++;
+                }
             } else {
                 System.out.println("X turn: ");
                 int x = scanner.nextInt();
                 int y = scanner.nextInt();
-                if (run(x, y, CellStatus.X))
+                if (run(x, y, CellStatus.X)) {
                     changeStatus();
+                    numberOfTurns++;
+                }
             }
             if (winGame)
                 break;
+            if (numberOfTurns == 9) {
+                System.out.println("Draw!");
+                break;
+            }
         } while (true);
         scanner.close();
     }
