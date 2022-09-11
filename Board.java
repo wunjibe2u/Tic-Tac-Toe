@@ -8,8 +8,8 @@ public class Board {
     }
 
     public boolean setBoard(int x, int y, CellStatus val) {
-        if ((cellBoard[(x - 1) * 3 + y - 1].getValue() != CellStatus.NONE) || (x < 1) || (x > 3)
-                || (y < 1) || (y > 3)) {
+        if ((x < 1) || (x > 3)
+                || (y < 1) || (y > 3) || (cellBoard[(x - 1) * 3 + y - 1].getValue() != CellStatus.NONE)) {
             return false;
         } else {
             cellBoard[(x - 1) * 3 + y - 1].setValue(val);

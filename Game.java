@@ -11,19 +11,11 @@ public class Game {
         mainBoard = new Board();
     }
 
-    public boolean getStatus() {
-        return curTurn;
-    }
-
-    public boolean getWinGame() {
-        return winGame;
-    }
-
-    public void changeStatus() {
+    private void changeStatus() {
         this.curTurn = !this.curTurn;
     }
 
-    public boolean run(int x, int y, CellStatus val) {
+    private boolean run(int x, int y, CellStatus val) {
         if (mainBoard.setBoard(x, y, val)) {
             mainBoard.printBoard();
             if (mainBoard.checkWin() != 0) {
@@ -42,26 +34,30 @@ public class Game {
         }
     }
 
-    public static void main(String[] args) {
+    public void play() {
         Scanner scanner = new Scanner(System.in);
-        Game mainGame = new Game();
         do {
-            if (mainGame.getStatus()) {
+            if (curTurn) {
                 System.out.println("O turn: ");
                 int x = scanner.nextInt();
                 int y = scanner.nextInt();
-                if (mainGame.run(x, y, CellStatus.O))
-                    mainGame.changeStatus();
+                if (run(x, y, CellStatus.O))
+                    changeStatus();
             } else {
                 System.out.println("X turn: ");
                 int x = scanner.nextInt();
                 int y = scanner.nextInt();
-                if (mainGame.run(x, y, CellStatus.X))
-                    mainGame.changeStatus();
+                if (run(x, y, CellStatus.X))
+                    changeStatus();
             }
-            if (mainGame.getWinGame())
+            if (winGame)
                 break;
         } while (true);
         scanner.close();
+    }
+
+    public static void main(String[] args) {
+        Game mainGame = new Game();
+        mainGame.play();
     }
 }
